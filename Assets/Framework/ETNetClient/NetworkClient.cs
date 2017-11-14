@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine;
+using Core;
 
 namespace Model
 {
-	public abstract class NetworkClient
+	public abstract class NetworkClient : TSingleton<NetworkClient>
 	{
-		private AService                    mService;
-		private Dictionary<long, NetworkSession>   mSessions               = new Dictionary<long, NetworkSession>();
+		private AService                            mService;
+		private Dictionary<long, NetworkSession>    mSessions               = new Dictionary<long, NetworkSession>();
 
-		public IMessagePacker               MessagePacker           { get; set; }
-		public IMessageDispatcher           MessageDispatcher       { get; set; }
+		public IMessagePacker                       MessagePacker           { get; set; }
+		public IMessageDispatcher                   MessageDispatcher       { get; set; }
+
+        private NetworkClient()
+        {
+        }
 
 		public void Initialize(NetworkProtocol rProtocol)
 		{
@@ -95,13 +99,13 @@ namespace Model
 			try
 			{
 				string[] ss = rAddress.Split(':');
-				int port = int.Parse(ss[1]);
-				string host = ss[0];
-				AChannel channel = this.mService.ConnectChannel(host, port);
-				NetworkSession session = new NetworkSession(this, channel);
-				channel.ErrorCallback += (c, e) => { this.Remove(session.Id); };
-				this.mSessions.Add(session.Id, session);
-				return session;
+				int nPort = int.Parse(ss[1]);
+				string rHost = ss[0];
+				AChannel rChannel = this.mService.ConnectChannel(rHost, nPort);
+				NetworkSession rSession = new NetworkSession(this, rChannel);
+				rChannel.ErrorCallback += (c, e) => { this.Remove(rSession.Id); };
+				this.mSessions.Add(rSession.Id, rSession);
+				return rSession;
 			}
 			catch (Exception e)
 			{

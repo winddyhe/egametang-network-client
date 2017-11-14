@@ -24,5 +24,5 @@ namespace Model
 
 			//throw new Exception($"message type error: {message.GetType().FullName}");
 		}
-	}
+    }
 }

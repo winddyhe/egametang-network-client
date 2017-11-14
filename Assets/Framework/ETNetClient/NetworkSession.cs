@@ -15,6 +15,9 @@ namespace Model
 		private Dictionary<uint, Action<object>>    mRequestCallback = new Dictionary<uint, Action<object>>();
 		private AChannel                            mChannel;
 		private List<byte[]>                        mByteses         = new List<byte[]>() {new byte[0], new byte[0]};
+        
+        public string                               RemoteAddress    => this.mChannel?.RemoteAddress;
+        public ChannelType                          ChannelType      => this.mChannel.ChannelType;
 
 		public NetworkSession(NetworkClient rNetwork, AChannel rChannel)
 		{
@@ -23,9 +26,6 @@ namespace Model
 
 			this.StartRecv();
 		}
-
-        public string RemoteAddress                 => this.mChannel?.RemoteAddress;
-        public ChannelType ChannelType              => this.mChannel.ChannelType;
 
 		private async void StartRecv()
 		{

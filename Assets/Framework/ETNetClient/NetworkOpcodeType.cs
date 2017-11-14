@@ -1,11 +1,11 @@
 ﻿using System;
-using UnityEngine;
+using Core;
 
 namespace Model
 {
-	public class NetworkOpcodeType
+	public class NetworkOpcodeType : TSingleton<NetworkOpcodeType>
 	{
-		private DoubleMap<ushort, Type>     mOpcodeTypes    = new DoubleMap<ushort, Type>();
+		private DoubleMap<ushort, Type> mOpcodeTypes = new DoubleMap<ushort, Type>();
 
 		public void Initialize()
 		{

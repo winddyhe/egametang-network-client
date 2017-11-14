@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace Model
 {
-	public class OpcodeTypeComponent : MonoBehaviour
+	public class NetworkOpcodeType
 	{
-        public long Id { get; set; }
-		private readonly DoubleMap<ushort, Type> opcodeTypes = new DoubleMap<ushort, Type>();
+		private DoubleMap<ushort, Type>     mOpcodeTypes    = new DoubleMap<ushort, Type>();
 
-		public void Awake()
+		public void Initialize()
 		{
 			Type[] monoTypes = DllHelper.GetMonoTypes();
 			foreach (Type monoType in monoTypes)
@@ -18,33 +17,23 @@ namespace Model
 				{
 					continue;
 				}
-
 				MessageAttribute messageAttribute = attrs[0] as MessageAttribute;
 				if (messageAttribute == null)
 				{
 					continue;
 				}
-
-				this.opcodeTypes.Add(messageAttribute.Opcode, monoType);
+				this.mOpcodeTypes.Add(messageAttribute.Opcode, monoType);
 			}
 		}
 
 		public ushort GetOpcode(Type type)
 		{
-			return this.opcodeTypes.GetKeyByValue(type);
+			return this.mOpcodeTypes.GetKeyByValue(type);
 		}
 
 		public Type GetType(ushort opcode)
 		{
-			return this.opcodeTypes.GetValueByKey(opcode);
-		}
-
-		public void Dispose()
-		{
-			if (this.Id == 0)
-			{
-				return;
-			}
+			return this.mOpcodeTypes.GetValueByKey(opcode);
 		}
 	}
 }

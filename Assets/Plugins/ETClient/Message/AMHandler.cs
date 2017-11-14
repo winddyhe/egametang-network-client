@@ -4,9 +4,9 @@ namespace Model
 {
 	public abstract class AMHandler<Message> : IMHandler where Message : AMessage
 	{
-		protected abstract void Run(Session session, Message message);
+		protected abstract void Run(ASession session, Message message);
 
-		public void Handle(Session session, AMessage msg)
+		public void Handle(ASession session, AMessage msg)
 		{
 			Message message = msg as Message;
 			if (message == null)

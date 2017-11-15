@@ -7,6 +7,10 @@ namespace Model
 	{
 		private DoubleMap<ushort, Type> mOpcodeTypes = new DoubleMap<ushort, Type>();
 
+        private NetworkOpcodeType()
+        {
+        }
+
 		public void Initialize()
 		{
 			Type[] monoTypes = DllHelper.GetMonoTypes();
@@ -28,11 +32,27 @@ namespace Model
 
 		public ushort GetOpcode(Type type)
 		{
+            if (type == typeof(Model.C2R_Login))
+            {
+                return 101;
+            }
+            else if (type == typeof(Model.C2G_LoginGate))
+            {
+                return 104;
+            }
 			return this.mOpcodeTypes.GetKeyByValue(type);
 		}
 
 		public Type GetType(ushort opcode)
 		{
+            if (opcode == 102)
+            {
+                return typeof(Model.R2C_Login);
+            }
+            else if (opcode == 105)
+            {
+                return typeof(Model.G2C_LoginGate);
+            }
 			return this.mOpcodeTypes.GetValueByKey(opcode);
 		}
 	}

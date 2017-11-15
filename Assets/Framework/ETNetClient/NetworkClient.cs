@@ -6,7 +6,7 @@ using Core;
 
 namespace Model
 {
-	public abstract class NetworkClient : TSingleton<NetworkClient>
+	public class NetworkClient : TSingleton<NetworkClient>
 	{
 		private AService                            mService;
 		private Dictionary<long, NetworkSession>    mSessions               = new Dictionary<long, NetworkSession>();
@@ -19,8 +19,11 @@ namespace Model
         }
 
 		public void Initialize(NetworkProtocol rProtocol)
-		{
-			switch (rProtocol)
+        {
+            this.MessagePacker = new MongoPacker();
+            this.MessageDispatcher = new ClientDispatcher();
+
+            switch (rProtocol)
 			{
 				case NetworkProtocol.TCP:
 					this.mService = new TService();

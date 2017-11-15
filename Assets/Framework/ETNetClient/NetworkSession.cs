@@ -8,10 +8,10 @@ namespace Model
 {
 	public sealed class NetworkSession : ASession
 	{
+        private static uint                         STATIC_ID = 1;
 		private static uint                         RpcId            { get; set; }
 
 		private NetworkClient                       mNetwork;
-        private NetworkOpcodeType                   mOpcodeType;
 		private Dictionary<uint, Action<object>>    mRequestCallback = new Dictionary<uint, Action<object>>();
 		private AChannel                            mChannel;
 		private List<byte[]>                        mByteses         = new List<byte[]>() {new byte[0], new byte[0]};
@@ -21,6 +21,8 @@ namespace Model
 
 		public NetworkSession(NetworkClient rNetwork, AChannel rChannel)
 		{
+            this.Id = STATIC_ID++;
+
 			this.mNetwork = rNetwork;
 			this.mChannel = rChannel;
 
@@ -88,7 +90,7 @@ namespace Model
 
 		private void RunDecompressedBytes(ushort nOpcode, byte[] rMessageBytes, int nOffset)
 		{
-			Type rMessageType = this.mOpcodeType.GetType(nOpcode);
+			Type rMessageType =  NetworkOpcodeType.Instance.GetType(nOpcode);
 			object message = this.mNetwork.MessagePacker.DeserializeFrom(rMessageType, rMessageBytes, nOffset, rMessageBytes.Length - nOffset);
 
 			//Log.Debug($"recv: {MongoHelper.ToJson(message)}");
@@ -160,7 +162,7 @@ namespace Model
 						tcs.SetException(new RpcException(response.Error, response.Message));
 						return;
 					}
-					//Log.Debug($"recv: {MongoHelper.ToJson(response)}");
+					Log.Debug($"recv: {MongoHelper.ToJson(response)}");
 					tcs.SetResult(response);
 				}
 				catch (Exception e)
@@ -192,7 +194,7 @@ namespace Model
 		private void SendMessage(object rMessage)
 		{
 			//Log.Debug($"send: {MongoHelper.ToJson(message)}");
-			ushort nOpcode = this.mOpcodeType.GetOpcode(rMessage.GetType());
+			ushort nOpcode = NetworkOpcodeType.Instance.GetOpcode(rMessage.GetType());
 			byte[] rMessageBytes = this.mNetwork.MessagePacker.SerializeToByteArray(rMessage);
 			if (rMessageBytes.Length > 100)
 			{

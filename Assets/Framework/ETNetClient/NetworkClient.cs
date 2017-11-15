@@ -20,7 +20,7 @@ namespace Model
 
 		public void Initialize(NetworkProtocol rProtocol)
         {
-            this.MessagePacker = new MongoPacker();
+            this.MessagePacker = new SerializerPacker();
             this.MessageDispatcher = new ClientDispatcher();
 
             switch (rProtocol)

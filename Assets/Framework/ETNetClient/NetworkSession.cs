@@ -162,7 +162,7 @@ namespace Model
 						tcs.SetException(new RpcException(response.Error, response.Message));
 						return;
 					}
-					Log.Debug($"recv: {MongoHelper.ToJson(response)}");
+                    Log.Debug($"recv: {this.mNetwork.MessagePacker.SerializeToText(response)}");
 					tcs.SetResult(response);
 				}
 				catch (Exception e)

@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Serializer;
 
 namespace Model
 {
@@ -9,10 +10,10 @@ namespace Model
 
 		object DeserializeFrom(Type type, byte[] bytes);
 		object DeserializeFrom(Type type, byte[] bytes, int index, int count);
-		T DeserializeFrom<T>(byte[] bytes);
-		T DeserializeFrom<T>(byte[] bytes, int index, int count);
+		T DeserializeFrom<T>(byte[] bytes) where T : SerializerBinary;
+		T DeserializeFrom<T>(byte[] bytes, int index, int count) where T : SerializerBinary;
 
-		T DeserializeFrom<T>(string str);
+		T DeserializeFrom<T>(string str) where T : SerializerBinary;
 		object DeserializeFrom(Type type, string str);
 	}
 }

@@ -1,39 +1,31 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using ProtoBuf;
+﻿using Core.WindJson;
+using Core.Serializer;
 
 // 不要在这个文件加[ProtoInclude]跟[BsonKnowType]标签,加到InnerMessage.cs或者OuterMessage.cs里面去
 namespace Model
 {
-	[ProtoContract]
-	public abstract partial class AMessage
+    [SBGroupInerited("Protocol")]
+	public abstract partial class AMessage : SerializerBinary
 	{
 		public override string ToString()
 		{
-			return MongoHelper.ToJson(this);
+            var rJsonNode = JsonParser.ToJsonNode(this);
+            return rJsonNode?.ToString();
 		}
 	}
-
-	[ProtoContract]
+    
 	public abstract partial class ARequest : AMessage
 	{
-		[ProtoMember(1000)]
-		[BsonIgnoreIfDefault]
-		public uint RpcId;
+		public uint         RpcId;
 	}
 
 	/// <summary>
 	/// 服务端回的RPC消息需要继承这个抽象类
 	/// </summary>
-	[ProtoContract]
 	public abstract partial class AResponse : AMessage
 	{
-		[ProtoMember(1000)]
-		public uint RpcId;
-
-		[ProtoMember(1001)]
-		public int Error = 0;
-
-		[ProtoMember(1002)]
-		public string Message = "";
+		public uint         RpcId;
+		public int          Error   = 0;
+		public string       Message = "";
 	}
 }

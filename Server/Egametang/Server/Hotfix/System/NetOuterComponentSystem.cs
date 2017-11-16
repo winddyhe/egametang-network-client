@@ -26,14 +26,14 @@ namespace Hotfix
 		public static void Awake(this NetOuterComponent self)
 		{
 			self.Awake(NetworkProtocol.TCP);
-			self.MessagePacker = new MongoPacker();
+			self.MessagePacker = new SerializerPacker();
 			self.MessageDispatcher = new OuterMessageDispatcher();
 		}
 
 		public static void Awake(this NetOuterComponent self, string host, int port)
 		{
 			self.Awake(NetworkProtocol.TCP, host, port);
-			self.MessagePacker = new MongoPacker();
+			self.MessagePacker = new SerializerPacker();
 			self.MessageDispatcher = new OuterMessageDispatcher();
 		}
 

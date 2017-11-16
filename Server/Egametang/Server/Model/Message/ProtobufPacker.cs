@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Serializer;
+using System;
 
 namespace Model
 {
@@ -24,18 +25,18 @@ namespace Model
 			return ProtobufHelper.FromBytes(type, bytes, index, count);
 		}
 
-		public T DeserializeFrom<T>(byte[] bytes)
-		{
+		public T DeserializeFrom<T>(byte[] bytes) where T : SerializerBinary
+        {
 			return ProtobufHelper.FromBytes<T>(bytes);
 		}
 
-		public T DeserializeFrom<T>(byte[] bytes, int index, int count)
-		{
+		public T DeserializeFrom<T>(byte[] bytes, int index, int count) where T : SerializerBinary
+        {
 			return ProtobufHelper.FromBytes<T>(bytes, index, count);
 		}
 
-		public T DeserializeFrom<T>(string str)
-		{
+		public T DeserializeFrom<T>(string str) where T : SerializerBinary
+        {
 			return MongoHelper.FromJson<T>(str);
 		}
 

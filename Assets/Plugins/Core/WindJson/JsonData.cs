@@ -63,6 +63,12 @@ namespace Core.WindJson
             set { Value = value.ToString(); }
         }
 
+        public virtual uint AsUInt
+        {
+            get { return CastUInt(Value); }
+            set { Value = value.ToString(); }
+        }
+
         public virtual long AsLong
         {
             get { return CastLong(Value);   }
@@ -97,6 +103,14 @@ namespace Core.WindJson
         {
             int re = 0;
             if (int.TryParse(value, out re)) return re;
+            Debug.LogError(string.Format("Value: {0} is not int type.", value));
+            return re;
+        }
+
+        public uint CastUInt(string value)
+        {
+            uint re = 0;
+            if (uint.TryParse(value, out re)) return re;
             Debug.LogError(string.Format("Value: {0} is not int type.", value));
             return re;
         }
@@ -532,6 +546,11 @@ namespace Core.WindJson
             AsInt = v;
         }
 
+        public JsonData(uint v)
+        {
+            AsUInt = v;
+        }
+
         public JsonData(long v)
         {
             AsLong = v;
@@ -575,6 +594,10 @@ namespace Core.WindJson
                 if (rType == typeof(int))
                 {
                     return CastInt(this.value);
+                }
+                else if (rType == typeof(uint))
+                {
+                    return CastUInt(this.value);
                 }
                 else if (rType == typeof(long))
                 {

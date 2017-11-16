@@ -571,7 +571,7 @@ namespace Core.WindJson
         {
             if (rType.IsPrimitive)
             {
-                if (rType == typeof(int))
+                if (rType == typeof(int) || rType == typeof(uint))
                 {
                     return CastInt(this.value);
                 }

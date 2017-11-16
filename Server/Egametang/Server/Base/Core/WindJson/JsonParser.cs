@@ -432,6 +432,8 @@ namespace Core.WindJson
             {
                 if (rType == typeof(int))
                     rRootNode = new JsonData((int)rObject);
+                if (rType == typeof(uint))
+                    rRootNode = new JsonData((uint)rObject);
                 else if (rType == typeof(long))
                     rRootNode = new JsonData((long)rObject);
                 else if (rType == typeof(float))

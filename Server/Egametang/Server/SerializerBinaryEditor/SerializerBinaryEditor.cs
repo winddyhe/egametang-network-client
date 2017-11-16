@@ -237,7 +237,7 @@ namespace Core.Editor
                 .A("/// <summary>").N()
                 .A("/// 文件自动生成无需又该！如果出现编译错误，删除文件后会自动生成").N()
                 .A("/// </summary>").N()
-                .A("namespace Game.Knight").N()
+                .A("namespace Model").N()
                 .A("{").N()
                 .T(1).A("public static class CommonSerializer").N()
                 .T(1).A("{").N();
@@ -470,7 +470,7 @@ namespace Core.Editor
         }
 
 
-        StringBuilder mCommonSerializer           = new StringBuilder();
+        StringBuilder   mCommonSerializer           = new StringBuilder();
         List<Type>      mGeneratedArray             = new List<Type>();
         List<Type>      mGeneratedDynamicArray      = new List<Type>();
         List<Type>      mGeneratedList              = new List<Type>();

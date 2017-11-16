@@ -8,6 +8,7 @@ netcoreapp2.0/
 Logs/
 obj/
 Temp/
+.vs/
 
 # Visual Studio 2015 cache directory
 /.vs/

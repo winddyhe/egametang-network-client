@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "egametang-network-client", "egametang-network-client.csproj", "{DAFFE1D7-17B2-447C-A1EB-EE150AF37A79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "egametang-network-client.Plugins", "egametang-network-client.Plugins.csproj", "{0A730503-D4F9-DEDC-F00C-FA562D1BE591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "egametang-network-client.Editor", "egametang-network-client.Editor.csproj", "{45C70CCA-BABF-2866-6243-2311315C83F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAFFE1D7-17B2-447C-A1EB-EE150AF37A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAFFE1D7-17B2-447C-A1EB-EE150AF37A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAFFE1D7-17B2-447C-A1EB-EE150AF37A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAFFE1D7-17B2-447C-A1EB-EE150AF37A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A730503-D4F9-DEDC-F00C-FA562D1BE591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A730503-D4F9-DEDC-F00C-FA562D1BE591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A730503-D4F9-DEDC-F00C-FA562D1BE591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A730503-D4F9-DEDC-F00C-FA562D1BE591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45C70CCA-BABF-2866-6243-2311315C83F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C70CCA-BABF-2866-6243-2311315C83F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C70CCA-BABF-2866-6243-2311315C83F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45C70CCA-BABF-2866-6243-2311315C83F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

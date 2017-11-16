@@ -28,5 +28,10 @@ namespace Model
 			}
 			return types.ToArray();
 		}
+
+        public static void ReferthisDLL()
+        {
+            Log.Debug("Refer this dll.");
+        }
 	}
 }

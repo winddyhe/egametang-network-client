@@ -8,7 +8,7 @@ namespace Test
 {
     public class ETClientTest : MonoBehaviour
     {
-        NetworkSession gateSession;
+        Session gateSession;
 
         void Awake()
         {
@@ -18,7 +18,7 @@ namespace Test
 
         async void Start()
         {
-            NetworkSession session = null;
+            Session session = null;
             try
             {
                 session = NetworkClient.Instance.Create("127.0.0.1:10002");

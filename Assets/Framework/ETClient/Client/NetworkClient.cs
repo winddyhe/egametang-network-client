@@ -9,7 +9,7 @@ namespace Model
 	public class NetworkClient : TSingleton<NetworkClient>
 	{
 		private AService                            mService;
-		private Dictionary<long, NetworkSession>    mSessions               = new Dictionary<long, NetworkSession>();
+		private Dictionary<long, Session>    mSessions               = new Dictionary<long, Session>();
 
 		public IMessagePacker                       MessagePacker           { get; set; }
 		public IMessageDispatcher                   MessageDispatcher       { get; set; }
@@ -67,10 +67,10 @@ namespace Model
 			}
 		}
 
-		public virtual async Task<NetworkSession> Accept()
+		public virtual async Task<Session> Accept()
 		{
 			AChannel rChannel = await this.mService.AcceptChannel();
-			NetworkSession rSession = new NetworkSession(this, rChannel);
+			Session rSession = new Session(this, rChannel);
 			rChannel.ErrorCallback += (c, e) => { this.Remove(rSession.Id); };
 			this.mSessions.Add(rSession.Id, rSession);
 			return rSession;
@@ -78,7 +78,7 @@ namespace Model
 
 		public virtual void Remove(long nId)
 		{
-			NetworkSession rSession;
+			Session rSession;
 			if (!this.mSessions.TryGetValue(nId, out rSession))
 			{
 				return;
@@ -87,9 +87,9 @@ namespace Model
 			rSession.Dispose();
 		}
 
-		public NetworkSession Get(long nId)
+		public Session Get(long nId)
 		{
-			NetworkSession rSession;
+			Session rSession;
 			this.mSessions.TryGetValue(nId, out rSession);
 			return rSession;
 		}
@@ -97,7 +97,7 @@ namespace Model
 		/// <summary>
 		/// 创建一个新Session
 		/// </summary>
-		public virtual NetworkSession Create(string rAddress)
+		public virtual Session Create(string rAddress)
 		{
 			try
 			{
@@ -105,7 +105,7 @@ namespace Model
 				int nPort = int.Parse(ss[1]);
 				string rHost = ss[0];
 				AChannel rChannel = this.mService.ConnectChannel(rHost, nPort);
-				NetworkSession rSession = new NetworkSession(this, rChannel);
+				Session rSession = new Session(this, rChannel);
 				rChannel.ErrorCallback += (c, e) => { this.Remove(rSession.Id); };
 				this.mSessions.Add(rSession.Id, rSession);
 				return rSession;
@@ -128,7 +128,7 @@ namespace Model
 
 		public void Dispose()
 		{
-			foreach (NetworkSession rSession in this.mSessions.Values.ToArray())
+			foreach (Session rSession in this.mSessions.Values.ToArray())
 			{
 				rSession.Dispose();
 			}

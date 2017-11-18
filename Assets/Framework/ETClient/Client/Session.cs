@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Model
 {
-	public sealed class NetworkSession : ASession
+	public sealed class Session : ASession
 	{
         private static uint                         STATIC_ID = 1;
 		private static uint                         RpcId            { get; set; }
@@ -19,7 +19,7 @@ namespace Model
         public string                               RemoteAddress    => this.mChannel?.RemoteAddress;
         public ChannelType                          ChannelType      => this.mChannel.ChannelType;
 
-		public NetworkSession(NetworkClient rNetwork, AChannel rChannel)
+		public Session(NetworkClient rNetwork, AChannel rChannel)
 		{
             this.Id = STATIC_ID++;
 
